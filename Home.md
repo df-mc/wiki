@@ -1,7 +1,8 @@
 Welcome to the Dragonfly wiki.
 
 This wiki is the main source of information for developers looking to start developing servers and libraries 
-using Dragonfly.
+using Dragonfly. The Dragonfly wiki is open to contributions. Pull Requests and issues may be opened at
+our [wiki repository](https://github.com/df-mc/wiki).
 
 ## What is Dragonfly?
 Dragonfly is a server software for Minecraft: Bedrock Edition (Android, iOS, Windows 10 and more). Written in Go, it allows simplistic code, super-fast startup and great performance and scaling.
