@@ -20,11 +20,17 @@ jobs:
           token: ${{ secrets.ACTIONS_SECRET }}
           path: ./wiki
 
+      - name: Remove ignored files
+        run: |
+          cd mirror
+          IGNORE=$(cat .wikiignore)
+          rm -rf $IGNORE
+          cd ..
+
       - name: Apply changes
         run: |
-          rm -rf mirror/.git*
           cp -a mirror/. wiki
-      
+
       - name: Push changes
         run: |
           cd wiki
