@@ -1,0 +1,35 @@
+name: Mirror to wiki
+on: [push]
+jobs:
+
+  mirror:
+    name: Mirror
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout current repository
+        uses: actions/checkout@v2
+        with:
+          path: ./mirror
+
+      - name: Checkout wiki repository
+        uses: actions/checkout@master
+        with:
+          repository: df-mc/dragonfly.wiki
+          token: ${{ secrets.ACTIONS_SECRET }}
+          path: ./wiki
+
+      - name: Apply changes
+        run: |
+          rm -rf mirror/.git*
+          cp -a mirror/. wiki
+      
+      - name: Push changes
+        run: |
+          cd wiki
+          git add .
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -am "${{ github.event.head_commit.message }} (@${{ github.event.head_commit.author.name }})"
+          git push

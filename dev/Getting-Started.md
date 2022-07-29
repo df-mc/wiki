@@ -1,0 +1,132 @@
+This guide on getting started with Dragonfly development assumes a basic
+understanding of Go (and Git). If you do not have experience with Go yet,
+it is recommended to go through the [Go Tour](https://go.dev/tour/welcome/1)
+and/or other resources.
+
+## Index
+* [Starting your project](#starting-your-project)
+* [Understanding the `main.go` file](#understanding-the-maingo-file)
+* [Using libraries](#using-libraries)
+
+## Starting your project
+Dragonfly by itself is a library that can be imported into your code. It
+is generally easy to use the [Dragonfly template](https://github.com/df-mc/template)
+to create a new repository with the basics necessary to run a Dragonfly
+server. After clicking `Use this template` and creating your repository,
+you can run `git clone` to clone the repository locally.
+
+To run Dragonfly, navigate into the folder `git clone` created and run:
+```shell
+go run main.go
+```
+
+Dragonfly should now start and display log messages that look like this:
+```
+INFO[0000] Loading server...                            
+DEBU[0000] Loading world...                              dimension=overworld
+INFO[0000] Loaded world "World".                         dimension=overworld
+DEBU[0000] Loading world...                              dimension=nether
+INFO[0000] Loaded world "World".                         dimension=nether
+DEBU[0000] Loading world...                              dimension=end
+INFO[0000] Loaded world "World".                         dimension=end
+INFO[0000] Starting Dragonfly for Minecraft v1.19.10... 
+INFO[0000] Server running on [::]:19132.
+```
+
+Your server is now running. By default, Dragonfly will run on port 19132.
+This setting and others may be edited in the config.toml file.
+
+To stop the server, `ctrl+C` can be run. The server will then shut down
+gracefully.
+
+## Understanding the `main.go` file
+Now that we are able to run the server, it is time to have a look at the
+[`main.go` file](https://github.com/df-mc/template/blob/master/main.go).
+
+The file starts with the package declaration and imports:
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/df-mc/dragonfly/server"
+	"github.com/df-mc/dragonfly/server/player/chat"
+	"github.com/pelletier/go-toml"
+	"github.com/sirupsen/logrus"
+	"io/ioutil"
+	"os"
+)
+```
+Your executable file must always be `package main` so that Go can compile
+it into a standalone executable. The imports are used in the code following
+them.
+
+Following that, we reach the `main` function declaration. `main` functions
+are unique to files that have `package main`. This function is called when
+the compiled executable is run.
+```go
+func main() {
+	log := logrus.New()
+	log.Formatter = &logrus.TextFormatter{ForceColors: true}
+	log.Level = logrus.DebugLevel
+```
+The first thing done here is the creation of a logger using the `sirupsen/logrus`
+library, with colours enabled and the log level set to debug. Removal of
+the `log.Level = logrus.DebugLevel` line will hide debug messages from the
+log. For production servers, this is recommended to reduce log noise.
+
+In the line after that, a `chat.StdoutSubscriber{}` is created.
+```go
+chat.Global.Subscribe(chat.StdoutSubscriber{})
+```
+This is a standard implementation of the `chat.Subscriber` interface that
+prints chat messages to the console when subscribed to a chat.
+
+After that, the `config.toml` file is read. This calls the `readConfig`
+function declared further down in the `main.go` file, which uses the 
+`pelletier/go-toml` library to read a `server.Config`:
+```go
+config, err := readConfig()
+if err != nil {
+    log.Fatalln(err)
+}
+```
+
+The `server.Config` read from the `config.toml` and logger are then used 
+to create a new server:
+```go
+srv := server.New(&config, log)
+srv.CloseOnProgramEnd()
+if err := srv.Start(); err != nil {
+    log.Fatalln(err)
+}
+```
+The `srv.CloseOnProgramEnd()` call ensures the server shuts down gracefully
+when the program is stopped using `ctrl+C`. After this, the server is started.
+
+The last lines of this `main` function are used to accept players joining
+the server:
+```go
+for srv.Accept(nil) {
+}
+```
+This snippet is generally the first place you will want to edit when you
+start working on your own server. `srv.Accept()` takes a function that
+is called when a player joins. 
+Passing a non-nil function:
+```go
+for srv.Accept(func(p *player.Player) {
+	// Do stuff with p, like attaching a handler.
+}) {
+}
+```
+You are now able to listen for a player joining and run code when they
+do. Further developer resources will go into depth on how to attach a
+handler to a `*player.Player` to listen for events.
+
+## Using libraries
+Because Dragonfly is just a library that is being used in this program,
+it is trivial to import external libraries and use them. You can simply
+run `go get github.com/<user>/<repo>` to add a library. Go will then
+add the library to the `go.mod` and `go.sum` files, and you will be able
+to use them normally.
