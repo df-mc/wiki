@@ -5,4 +5,4 @@
 Wiki is a mirror of the [dragonfly wiki](https://github.com/df-mc/dragonfly/wiki) to allow contributions from the community.
 
 ## Contributing
-If you would like to add a new page or edit a page within the wiki, please create a pull request. Once your pr has been merged, a GitHub action will automatically update the [dragonfly wiki](https://github.com/df-mc/dragonfly/wiki).
+If you would like to add a new page or edit a page within the wiki, please create a pull request. Once your pull request is merged, a GitHub action will automatically update the [dragonfly wiki](https://github.com/df-mc/dragonfly/wiki).
