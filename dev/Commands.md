@@ -23,7 +23,7 @@ import "github.com/df-mc/dragonfly/server/cmd"
 
 // ExampleCommand contains our command parameters.
 type ExampleCommand struct {
-    // Each parameters requires the field to be exported in order for the command to work properly.
+    // Each parameter requires the field to be exported in order for the command to work properly.
     // The `cmd:""` struct tag may be specified to change the name of the parameter and its suffix.
     // Supported type: int*, uint*, float*, string, bool, mgl64.Vec3, []cmd.Target, cmd.Enum ...
     Number int `cmd:"number"`

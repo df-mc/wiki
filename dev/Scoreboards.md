@@ -22,8 +22,8 @@ to a player. These scoreboards can be removed similarly using the `(*Player).Rem
 package main
 
 import (
-	"github.com/df-mc/dragonfly/server/player/scoreboard"
 	"github.com/df-mc/dragonfly/server/player"
+	"github.com/df-mc/dragonfly/server/player/scoreboard"
 )
 
 func sendScoreboard(p *player.Player) {

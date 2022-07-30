@@ -1,5 +1,5 @@
 ## Is Dragonfly ready for use?
-Dragonfly is currently in it's early developmental phases. While you certainly can use it, there will be things that are lacking or unimplemented. If you encounter any bugs or would like to see a feature implemented, feel free to open an issue.
+Dragonfly is currently in its early developmental phases. While you certainly can use it, there will be things that are lacking or unimplemented. If you encounter any bugs or would like to see a feature implemented, feel free to open an issue.
 
 ## How do I add plugins?
 Due to the way Dragonfly functions, it doesn't support plugins. Dragonfly is a library that has to be included by another program, where the actual logic would be controlled, altered and extended by the main program.

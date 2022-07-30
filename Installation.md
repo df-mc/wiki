@@ -21,5 +21,5 @@ go run main.go
 
 
 ## Video
-[![Dragonfly Tutorial #1 - Starting a serverl](http://img.youtube.com/vi/21W0jueJ7oU/0.jpg)](http://www.youtube.com/watch?v=21W0jueJ7oU "Dragonfly Tutorial #1 - Starting a server")
+[![Dragonfly Tutorial #1 - Starting a server](http://img.youtube.com/vi/21W0jueJ7oU/0.jpg)](http://www.youtube.com/watch?v=21W0jueJ7oU "Dragonfly Tutorial #1 - Starting a server")
 

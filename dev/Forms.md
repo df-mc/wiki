@@ -78,7 +78,7 @@ import (
 
 // ...
 
-// send sends SomeForm to a *player.Player.
+// send shows SomeForm to a *player.Player.
 func send(p *player.Player) {
 	f := form.New(
 		SomeForm{

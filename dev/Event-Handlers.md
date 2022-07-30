@@ -104,7 +104,7 @@ code in a clean way. By creating a new package (folder) and importing it,
 you can keep your handler code in a different file.
 
 ## Switching player handlers
-Some servers, such as minigames servers, have very different behaviour in
+Some servers, such as minigame servers, have very different behaviour in
 one place (the games) than another (the hub). It is useful to be able to
 switch `player.Handler`s at runtime to reflect this. Switching a player's
 handler works the same as assigning the initial handler:
