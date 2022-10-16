@@ -160,6 +160,6 @@ a `Handle()` method to attach and/or switch the handler.
 ## Multiple simultaneous handlers
 Dragonfly's system does not support adding multiple handlers simultaneously
 out of the box, where other Bedrock Edition server software might. There 
-are libraries that implement solutions to this however, such as [Peex](https://github.com/AndreasHGK/Peex). 
+are libraries that implement solutions to this however, such as [Peex](https://github.com/AndreasHGK/Peex) and [GracticeEssential](https://github.com/Blackjack200/GracticeEssential). 
 Whether you want to use these or not depends on your preference and 
 requirements for your server.
