@@ -34,8 +34,10 @@ jobs:
       - name: Push changes
         run: |
           cd wiki
-          git add .
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git commit -am "${{ github.event.head_commit.message }} (@${{ github.event.head_commit.author.name }})"
-          git push
+          if ! git diff --exit-code --quiet; then
+            git add .
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git commit -am "${{ github.event.head_commit.message }} (@${{ github.event.head_commit.author.name }})"
+            git push
+          fi
