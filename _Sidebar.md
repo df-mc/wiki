@@ -9,3 +9,4 @@
     - [Forms](https://github.com/df-mc/dragonfly/wiki/Forms)
     - [Commands](https://github.com/df-mc/dragonfly/wiki/Commands)
     - [Scoreboards](https://github.com/df-mc/dragonfly/wiki/Scoreboards)
+* [Community Projects](https://github.com/df-mc/dragonfly/wiki/Community-Projects)
