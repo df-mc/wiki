@@ -14,6 +14,8 @@ the structure established by existing projects on the listing.
 a README that explains its purpose and how to use it, ideally with examples.
 * [ ] The (Go) project should use tools such as `go fmt` and `go vet` to ensure
 correct formatting and correct behaviour.
+* [ ] The project should be in a usable state. Releases or tags are recommended, 
+with versioning in particular following Go guidelines, e.g. `v1.0.1`, `v2.3.8`.
 * [ ] Checklist for libraries
   * [ ] The library should be documented in places that users interact with it, such as
   exported types and functions. This ensures that the library can be viewed on
