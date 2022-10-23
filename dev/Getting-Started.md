@@ -95,18 +95,16 @@ if err != nil {
 The `server.Config` read from the `config.toml` and logger are then used 
 to create a new server:
 ```go
-srv := server.New(&config, log)
+srv := conf.New()
 srv.CloseOnProgramEnd()
-if err := srv.Start(); err != nil {
-    log.Fatalln(err)
-}
 ```
 The `srv.CloseOnProgramEnd()` call ensures the server shuts down gracefully
 when the program is stopped using `ctrl+C`. After this, the server is started.
 
-The last lines of this `main` function are used to accept players joining
-the server:
+The last lines of this `main` function are used to start listening and accept 
+players joining the server:
 ```go
+srv.Listen()
 for srv.Accept(nil) {
 }
 ```

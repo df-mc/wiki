@@ -37,7 +37,7 @@ _Libraries for editing worlds on large scales._
 ## Servers
 
 ### Building Servers
-_Servers implementations related to enhancing building._
+_Server implementations related to enhancing building._
 * [plots](https://github.com/df-mc/plots) - Minecraft plots server written using Dragonfly.
 
 ## Tools
