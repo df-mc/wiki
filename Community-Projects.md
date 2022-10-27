@@ -41,5 +41,6 @@ _Server implementations related to enhancing building._
 * [plots](https://github.com/df-mc/plots) - Minecraft plots server written using Dragonfly.
 
 ## Tools
+* [strutils](https://github.com/unickorn/strutils) - Library for text centering and color code cleaning.
 
 ## Development Resources
