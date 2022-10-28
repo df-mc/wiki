@@ -29,6 +29,10 @@ _Libraries to improve or extend event handling._
 _Libraries to play music within a server._
 * [nbs](https://github.com/JustTalDevelops/nbs) - A note block song parser for legacy Note Block Studio and Open Note Block Studio.
 
+### Text Formatting
+_Libraries for formatting text_
+* [strutils](https://github.com/unickorn/strutils) - Library for text centering and color code cleaning.
+
 ### World Edit
 _Libraries for editing worlds on large scales._
 * [structure](https://github.com/df-mc/structure) - Structure parsing and writing library for Dragonfly.
@@ -41,6 +45,6 @@ _Server implementations related to enhancing building._
 * [plots](https://github.com/df-mc/plots) - Minecraft plots server written using Dragonfly.
 
 ## Tools
-* [strutils](https://github.com/unickorn/strutils) - Library for text centering and color code cleaning.
+
 
 ## Development Resources
