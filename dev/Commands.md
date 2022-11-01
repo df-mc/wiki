@@ -22,7 +22,6 @@ package commands
 
 import (
 	"github.com/df-mc/dragonfly/server/cmd"
-	"go/ast"
 )
 
 // ExampleCommand contains our command parameters.
