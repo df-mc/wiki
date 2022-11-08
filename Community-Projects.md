@@ -25,6 +25,7 @@ _Libraries for simplifying work with and adding features to entities._
 
 ### Event Handling
 _Libraries to improve or extend event handling._
+* [Peex](https://github.com/AndreasHGK/Peex) - Multihandler library with player components
 
 ### Music
 _Libraries to play music within a server._
