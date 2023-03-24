@@ -19,6 +19,10 @@
 _Libraries implementing clients for APIs frequently used for Minecraft servers._
 * [vote](https://github.com/df-mc/vote) - Go library for accessing the minecraftpocket-servers.com voting API.
 
+### Economy
+_Libraries for integrating economy into a server_
+* [economy](https://github.com/provsalt/economy) - A simple, fast and extensible economy api for Dragonfly.
+
 ### Entities
 _Libraries for simplifying work with and adding features to entities._
 * [npc](https://github.com/df-mc/npc) - NPC library for Dragonfly.
