@@ -14,7 +14,7 @@ jobs:
           path: ./mirror
 
       - name: Checkout wiki repository
-        uses: actions/checkout@master
+        uses: actions/checkout@main
         with:
           repository: df-mc/dragonfly.wiki
           token: ${{ secrets.ACTIONS_SECRET }}
