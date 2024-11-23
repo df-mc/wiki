@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@main
         with:
           repository: df-mc/dragonfly.wiki
+          ref: refs/heads/main
           token: ${{ secrets.ACTIONS_SECRET }}
           path: ./wiki
 
