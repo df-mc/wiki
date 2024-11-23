@@ -7,7 +7,7 @@
 * Developer Resources
     - [Getting Started](https://github.com/df-mc/dragonfly/wiki/Getting-Started)
     - [Event handlers](https://github.com/df-mc/dragonfly/wiki/Event-Handlers)
-    - [World transactions](https://github.com/df-mc/dragonfly/wiki/World-Transactions.md)
+    - [World transactions](https://github.com/df-mc/dragonfly/wiki/temp/World-Transactions.md)
     - [Forms](https://github.com/df-mc/dragonfly/wiki/Forms)
     - [Commands](https://github.com/df-mc/dragonfly/wiki/Commands)
     - [Scoreboards](https://github.com/df-mc/dragonfly/wiki/Scoreboards)
