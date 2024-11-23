@@ -33,8 +33,6 @@ jobs:
           cp -a mirror/. wiki
 
       - name: Push changes
-        with:
-          token: ${{ secrets.ACTIONS_SECRET }}
         run: |
           cd wiki
           if ! git diff --exit-code --quiet; then
