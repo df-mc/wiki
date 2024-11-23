@@ -155,7 +155,7 @@ for p := range srv.Accept() {
 	// Use p.
 }
 ```
-Like in other players, using `p` outside of this context (different goroutine or
+Like in other places, using `p` outside of this context (different goroutine or
 time.AfterFunc()) is not permitted.
 
 ## Conclusion
