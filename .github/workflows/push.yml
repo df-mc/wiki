@@ -14,9 +14,10 @@ jobs:
           path: ./mirror
 
       - name: Checkout wiki repository
-        uses: actions/checkout@master
+        uses: actions/checkout@main
         with:
           repository: df-mc/dragonfly.wiki
+          ref: refs/heads/master
           token: ${{ secrets.ACTIONS_SECRET }}
           path: ./wiki
 
@@ -32,6 +33,8 @@ jobs:
           cp -a mirror/. wiki
 
       - name: Push changes
+        with:
+          token: ${{ secrets.ACTIONS_SECRET }}
         run: |
           cd wiki
           if ! git diff --exit-code --quiet; then
