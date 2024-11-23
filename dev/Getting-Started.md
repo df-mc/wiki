@@ -22,15 +22,11 @@ go run main.go
 
 Dragonfly should now start and display log messages that look like this:
 ```
-INFO[0000] Loading server...                            
-DEBU[0000] Loading world...                              dimension=overworld
-INFO[0000] Loaded world "World".                         dimension=overworld
-DEBU[0000] Loading world...                              dimension=nether
-INFO[0000] Loaded world "World".                         dimension=nether
-DEBU[0000] Loading world...                              dimension=end
-INFO[0000] Loaded world "World".                         dimension=end
-INFO[0000] Starting Dragonfly for Minecraft v1.19.10... 
-INFO[0000] Server running on [::]:19132.
+2024/11/23 12:57:23 INFO Opened dimension. dimension=overworld name=World
+2024/11/23 12:57:23 INFO Opened dimension. dimension=nether name=World
+2024/11/23 12:57:23 INFO Opened dimension. dimension=end name=World
+2024/11/23 12:57:23 INFO Starting Dragonfly server... mc-version=1.21.40 go-version="go1.23.3" commit=2242b772bcc4f65d4f8e12cfab8cf70c2d78cb1a
+2024/11/23 12:57:23 INFO Server running. addr=[::]:19132
 ```
 
 Your server is now running. By default, Dragonfly will run on port 19132.
@@ -66,31 +62,24 @@ are unique to files that have `package main`. This function is called when
 the compiled executable is run.
 ```go
 func main() {
-	log := logrus.New()
-	log.Formatter = &logrus.TextFormatter{ForceColors: true}
-	log.Level = logrus.DebugLevel
+    chat.Global.Subscribe(chat.StdoutSubscriber{})
 ```
-The first thing done here is the creation of a logger using the `sirupsen/logrus`
-library, with colours enabled and the log level set to debug. Removal of
-the `log.Level = logrus.DebugLevel` line will hide debug messages from the
-log. For production servers, this is recommended to reduce log noise.
-
-In the line after that, a `chat.StdoutSubscriber{}` is created.
-```go
-chat.Global.Subscribe(chat.StdoutSubscriber{})
-```
-This is a standard implementation of the `chat.Subscriber` interface that
-prints chat messages to the console when subscribed to a chat.
+The first thing done here is the creation of a 
+`chat.StdoutSubscriber{}`. This is a standard implementation of the 
+`chat.Subscriber` interface that prints chat messages to the console when 
+subscribed to a chat.
 
 After that, the `config.toml` file is read. This calls the `readConfig`
 function declared further down in the `main.go` file, which uses the 
 `pelletier/go-toml` library to read a `server.Config`:
 ```go
-config, err := readConfig()
+config, err := readConfig(slog.Default())
 if err != nil {
     log.Fatalln(err)
 }
 ```
+Additionally, a logger is passed that will be used by the server to log
+information.
 
 The `server.Config` read from the `config.toml` and logger are then used 
 to create a new server:
@@ -105,19 +94,14 @@ The last lines of this `main` function are used to start listening and accept
 players joining the server:
 ```go
 srv.Listen()
-for srv.Accept(nil) {
+for p := range srv.Accept() {
+	_ = p
 }
 ```
 This snippet is generally the first place you will want to edit when you
-start working on your own server. `srv.Accept()` takes a function that
-is called when a player joins. 
-Passing a non-nil function:
-```go
-for srv.Accept(func(p *player.Player) {
-	// Do stuff with p, like attaching a handler.
-}) {
-}
-```
+start working on your own server. `srv.Accept()` returns players
+as soon as they join the server.
+
 You are now able to listen for a player joining and run code when they
 do. Further developer resources will go into depth on how to attach a
 handler to a `*player.Player` to listen for events.

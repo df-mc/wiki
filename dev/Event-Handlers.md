@@ -23,17 +23,14 @@ The first step is to create a new struct type, which we will initially
 put at the bottom of `main.go`:
 ```go
 type MyHandler struct {
-	p *player.Player
+	// Any additional data.
 }
 ```
-`MyHandler` has a `p` field. This will later hold the player that this
-handler will listen to. You can also add other fields that you want to
-use for the duration of a player's session. It is generally recommended 
-to have a `New...` function for your handler to initialise it, so we will 
-create that:
+It is generally recommended to have a `New...` function for your handler to 
+initialise it, so we will create that:
 ```go
-func NewMyHandler(p *player.Player) *MyHandler {
-	return &MyHandler{p: p}
+func NewMyHandler() *MyHandler {
+	return &MyHandler{}
 }
 ```
 As you can see, we return a `*MyHandler` (pointer) as opposed to `MyHandler`.
@@ -45,7 +42,7 @@ will embed the `player.NopHandler` type:
 ```go
 type MyHandler struct {
 	player.NopHandler
-	p *player.Player
+	// Any additional data.
 }
 ```
 `player.NopHandler` is the default `player.Handler` assigned to a player.
@@ -55,9 +52,10 @@ methods if we do not want to. We can now look at [`player.Handler`'s methods]((h
 and see which event we want to handle in `MyHandler`. For this example, we
 will cancel a player sending a chat message and print it to the terminal:
 ```go
-func (m *MyHandler) HandleChat(ctx *event.Context, message *string) {
+func (m *MyHandler) HandleChat(ctx *player.Context, message *string) {
+	p := ctx.Val()
 	ctx.Cancel()
-	fmt.Println("Player", m.p.Name(), "tried to send:", *message)
+	fmt.Println("Player", p.Name(), "tried to send:", *message)
 }
 ```
 The `*event.Context` may be cancelled using `ctx.Cancel()`. This will stop
@@ -69,16 +67,16 @@ Combining this code:
 ```go
 type MyHandler struct {
 	player.NopHandler
-	p *player.Player
 }
 
-func NewMyHandler(p *player.Player) *MyHandler {
-    return &MyHandler{p: p}
+func NewMyHandler() *MyHandler {
+    return &MyHandler{}
 }
 
-func (m *MyHandler) HandleChat(ctx *event.Context, message *string) {
+func (m *MyHandler) HandleChat(ctx *player.Context, message *string) {
+    p := ctx.Val()
     ctx.Cancel()
-	fmt.Println("Player", m.p.Name(), "tried to send:", *message)
+    fmt.Println("Player", p.Name(), "tried to send:", *message)
 }
 ```
 
@@ -86,14 +84,14 @@ Now that our `player.Handler` implementation is ready, we will want to
 attach it to the player when it joins. Moving back to the `main` function,
 we change:
 ```go
-for srv.Accept(nil) {
+for p := range srv.Accept() {
+	_ = p
 }
 ```
 to:
 ```go
-for srv.Accept(func(p *player.Player) {
-	p.Handle(NewMyHandler(p))
-}) {
+for p := range srv.Accept() {
+	p.Handle(NewMyHandler())
 }
 ```
 Players joining the server will now immediately get `MyHandler` assigned as
@@ -131,14 +129,13 @@ to the handler, like so:
 ```go
 type MyHandler struct {
 	player.NopHandler
-	p *player.Player
 	
 	deaths int
 	kills int
 }
 ```
-By implementing the `HandleDeath(damage.Source)` method, you can detect
-when the player quits and, for example, store the data to disk. The
+By implementing the `HandleDeath(*player.Player, damage.Source)` method, you can detect
+when the player dies and, for example, store the data to disk. The
 handler of a player can be retrieved by calling `p.Handler()`, and asserting
 it to the correct type like this:
 ```go

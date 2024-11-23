@@ -22,6 +22,7 @@ package commands
 
 import (
 	"github.com/df-mc/dragonfly/server/cmd"
+	"github.com/df-mc/dragonfly/server/world"
 )
 
 // ExampleCommand contains our command parameters.
@@ -36,7 +37,7 @@ type ExampleCommand struct {
 }
 
 // Run will be called when the player runs the command. In this case, we will print the number back to the player
-func (c ExampleCommand) Run(source cmd.Source, output *cmd.Output) {
+func (c ExampleCommand) Run(source cmd.Source, output *cmd.Output, tx *world.Tx) {
 	msg, ok := c.OptionalMessage.Load()
 	output.Printf("%d %s (optional arg set? %v)", c.Number, msg, ok)
 }
@@ -66,17 +67,20 @@ commands:
 ```go
 package pet
 
-import "github.com/df-mc/dragonfly/server/cmd"
+import (
+	"github.com/df-mc/dragonfly/server/cmd"
+	"github.com/df-mc/dragonfly/server/world"
+)
 
 type CreateCommand struct {
 	Name cmd.Varargs `cmd:"name"`
 }
 
-func (CreateCommand) Run(source cmd.Source, output *cmd.Output) {}
+func (CreateCommand) Run(source cmd.Source, output *cmd.Output, tx *world.Tx) {}
 
 type DeleteCommand struct {}
 
-func (DeleteCommand) Run(source cmd.Source, output *cmd.Output) {}
+func (DeleteCommand) Run(source cmd.Source, output *cmd.Output, tx *world.Tx) {}
 ```
 
 Now that we have both of these `cmd.Runnable` implementations, we will add a field at the start of these
@@ -86,7 +90,10 @@ added here to make the parser use a different sub command name.
 ```go
 package pet
 
-import "github.com/df-mc/dragonfly/server/cmd"
+import (
+	"github.com/df-mc/dragonfly/server/cmd"
+	"github.com/df-mc/dragonfly/server/world"
+)
 
 type CreateCommand struct {
 	// This sub command will be accessible as /pet create <name>.
@@ -94,14 +101,14 @@ type CreateCommand struct {
 	Name cmd.Varargs `cmd:"name"`
 }
 
-func (CreateCommand) Run(source cmd.Source, output *cmd.Output) {}
+func (CreateCommand) Run(source cmd.Source, output *cmd.Output, tx *world.Tx) {}
 
 type DeleteCommand struct {
 	// This subcommand will be accessible as /pet Delete.
 	Delete cmd.SubCommand
 }
 
-func (DeleteCommand) Run(source cmd.Source, output *cmd.Output) {}
+func (DeleteCommand) Run(source cmd.Source, output *cmd.Output, tx *world.Tx) {}
 ```
 
 Having created complete `cmd.Runnable` implementations for both of our subcommands, we can now run `cmd.New` and register the command:
