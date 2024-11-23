@@ -25,7 +25,6 @@ This version includes protocol support for 1.21.40 as well as a number of bug fi
 ### **block**
 
 - The `Mangrove` and `Cherry` functions have been renamed to `MangroveWood` and `CherryWood` respectively.
-- The new `SneakingActivatable` interface has been added to allow blocks to be activated when sneaking.
 - The new `Oxidizable` interface has been added for blocks that can oxidise.
 - Many new blocks have been implemented, including `BrewingStand` `Copper`, `CopperDoor`, `CopperGrate`,
   `CopperTrapdoor`, `PolishedTuff` and `TuffBricks`.
