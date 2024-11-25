@@ -39,6 +39,7 @@ import (
 	"fmt"
 	"github.com/df-mc/dragonfly/server/player"
 	"github.com/df-mc/dragonfly/server/player/form"
+	"github.com/df-mc/dragonfly/server/world"
 )
 
 // SomeForm holds the structure of our form. The order in which elements appear is defined by the order of
@@ -53,7 +54,7 @@ type SomeForm struct {
 
 // Submit is called when the form is submitted. It must have this signature in order to implement the
 // form.Submittable interface.
-func (f SomeForm) Submit(submitter form.Submitter) {
+func (f SomeForm) Submit(submitter form.Submitter, tx *world.Tx) {
 	// A form.Submitter is guaranteed to be a *player.Player when sent to a player, so we can assert it to a
 	// player right away.
 	p := submitter.(*player.Player)

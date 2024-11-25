@@ -142,6 +142,10 @@ Commands now have a transaction passed to them too, and players/entities returne
 a `[]Target` parameter will only include those from the same world as the caller of
 the command.
 
+### Forms
+Like with commands, forms are opened within a transaction now. The transaction is
+passed to all Submit methods and Close methods.
+
 ### Accepting players
 Accepting players was changed from the following:
 ```go
