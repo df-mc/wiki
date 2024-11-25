@@ -24,9 +24,9 @@ of this scope (e.g. on a different goroutine) is not permitted:
 ```go
 var w *world.World
 w.Exec(func(tx *world.Tx) {
-	// tx is valid here.
-	go func() {
-		// tx is invalid here.
+    // tx is valid here.
+    go func() {
+        // tx is invalid here.
     }()
 })
 // tx is also invalid here
