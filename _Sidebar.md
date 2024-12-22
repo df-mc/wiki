@@ -4,6 +4,7 @@
 * [FAQ](https://github.com/df-mc/dragonfly/wiki/Frequently-Asked-Questions-(FAQ))
 * [Releases](https://github.com/df-mc/dragonfly/wiki/Releases)
     - [v0.9.19](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.9.19)
+    - [v0.9.20](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.9.20)
 * Developer Resources
     - [Getting Started](https://github.com/df-mc/dragonfly/wiki/Getting-Started)
     - [Event handlers](https://github.com/df-mc/dragonfly/wiki/Event-Handlers)
