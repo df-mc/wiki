@@ -6,6 +6,7 @@ Dragonfly v0.10.
 * [Entities and transactions](#entities-and-transactions)
 * [Handlers and transactions](#handlers-and-transactions)
 * [Updating from older versions](#updating-from-older-versions)
+* [Troubleshooting](#troubleshooting)
 * [Conclusion](#conclusion)
 
 ## Worlds and transactions
@@ -85,7 +86,9 @@ run the transaction function.
 
 In short: Avoid storing `world.Entity` implementations (includes `*player.Player`) in
 any field that lasts longer than a transaction. Instead, store a `*world.EntityHandle` and
-open a new transaction when needed.
+open a new transaction when needed. Another consequence is that `world.Entity` implementations,
+such as `*player.Player`, should not be compared for equality with `==`. Instead, compare their
+respective handles by checking, e.g., if `(world.Entity).H() == (*player.Player).H()`.
 
 ## Handlers and transactions
 Handlers, such as `player.Handler` and `world.Handler`, have the respective `*player.Player`/
@@ -161,6 +164,52 @@ for p := range srv.Accept() {
 ```
 Like in other places, using `p` outside of this context (different goroutine or
 time.AfterFunc()) is not permitted.
+
+## Troubleshooting
+You might run into some issues trying to update to the new world transactions. Here are some of the most common issues
+and what you can do to solve them:
+
+#### panic: `world.Tx: use of transaction after transaction finishes is not permitted`:
+This panic happens when a transaction is used after it is closed. Common causes for this include using entities outside
+of transactions, e.g. when storing `*player.Player` as opposed to its `*world.EntityHandle`. Solving this issue involves
+making sure that a `*world.Tx` is not used outside a transaction. This also includes entities that implement
+`world.Entity`, such as `*player.Player`. Instead, store their `*world.EntityHandle`, which is persistent, unique and 
+safe for use outside a transaction.
+
+#### Deadlock/freeze while opening a transaction:
+You might run into deadlocks trying to create world transactions. This results from opening a transaction from within
+a transaction. Let's say we have the following function:
+```go
+func Do(p *player.Player, w *world.World) {
+    p.Message("Do called")
+    <-w.Exec(func(tx *world.Tx) {
+        fmt.Printf("Range: %v\n", tx.Range())
+    })
+}
+```
+This function will cause a deadlock because the presence of a `*player.Player`, which implements `world.Entity`, means
+that this function is called while a transaction is already opened. Because we wait for the new transaction we create to
+finish (**`<-`**`w.Exec()`), a deadlock is created. There are two ways to solve this:
+
+If, in this example, `w` is always equal to the player's world, we can simply do the following:
+```go
+func Do(p *player.Player, w *world.World) {
+    p.Message("Do called")
+    fmt.Printf("Range: %v\n", p.Tx().Range())
+}
+```
+
+If, on the other hand, `w` is not guaranteed to be the player's world, we can simply remove the arrow so that we do not
+wait for the transaction to end inside the current transaction:
+```go
+func Do(p *player.Player, w *world.World) {
+    p.Message("Do called")
+    w.Exec(func(tx *world.Tx) {
+        fmt.Printf("Range: %v\n", tx.Range())
+    })
+}
+```
+Now, the transaction is run asynchronously once our current transaction ends.
 
 ## Conclusion
 Transactions help prevent many race conditions and make it easier to optimise 

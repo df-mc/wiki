@@ -3,14 +3,11 @@
 Released January 5th, 2025.
 
 This version introduces significant changes to Dragonfly, making world access happen through
-synchronised transactions.
+synchronised transactions. More information on this system can be found at the [wiki page for world transactions](https://github.com/df-mc/dragonfly/wiki/World-Transactions)
 
-Dragonfly v0.10.0 requires **Go 1.23** at the least.
+Dragonfly v0.10.0 requires **Go 1.23** or above.
 
 ## Changes
-
-### **biome**
-- Added pale garden biome.
 
 ### **block**
 - Added pale oak blocks.
@@ -18,6 +15,7 @@ Dragonfly v0.10.0 requires **Go 1.23** at the least.
 - Added end rods.
 - Added pink petals.
 - Added vines.
+- Decorated pots can now have sherds and be filled with a stack of items.
 - Leaves now have a chance to drop sticks when breaking.
 - Crops now drop their respective seeds/items when "popping off" as a result of low light levels.
 - Fixed door placement consuming 3 door items.
@@ -28,12 +26,8 @@ Dragonfly v0.10.0 requires **Go 1.23** at the least.
 - Fixed note blocks retaining their last note when dropped. (https://github.com/df-mc/dragonfly/issues/854)
 - Fixed dead bushes not being placeable on grass/mud. 
 
-### **chat**
-- Added a new `Translate` function used for (client-side) translations. Passing a `TranslationString` to `Translate`
-  returns a `Translation`. `Translation`s may require arguments that can be passed in `(Translation).F`.
-- Added a new `Translator` interface for `Subscriber`s that can translate messages.
-- Added a new `(*Chat).Messaget` function to broadcast a translation that is localised for each subscriber that also
-  implements `Translator`.
+### **block/cube**
+- `Rotation` has a new `Neg` method that returns the negative of both `Rotation` values, used for projectiles.
 
 ### **cmd**
 - Command names and aliases now must be lowercase. (https://github.com/df-mc/dragonfly/issues/946)
@@ -41,41 +35,34 @@ Dragonfly v0.10.0 requires **Go 1.23** at the least.
   transactions and is likely to be reverted in a future Dragonfly version.
 - The `*world.Tx` in which a command is run is now passed to `(Runnable).Run`.
 
-### **creative**
-- Fixed several items, such as banners and skulls, not showing up correctly in the creative inventory. ()
+### **entity**
+- Fixed splash/lingering potions and bottles o' enchanting throwing velocity not matching vanilla. (https://github.com/df-mc/dragonfly/issues/746)
+- Fixed projectile knockback to reflect projectile velocity rather than collision position.
 
-### **cube**
-- `Rotation` has a new `Neg` method that returns the negative of both `Rotation` values, used for projectiles.
-
-### **dialogue**
-dialogue is a new package for sending entity dialogues to players. These are UI windows with text, buttons and an
-entity. The entity may be rotated. Dialogues may be created using `New` and can be sent to players using 
-`(*player.Player).SendDialogue`.
-
-### **effect**
-- Effects now start their tick count the moment they are added to `*entity.EffectManager`. This means that effects now 
+### **entity/effect**
+- Effects now start their tick count the moment they are added to `*entity.EffectManager`. This means that effects now
   always tick predictably and consistently. (https://github.com/df-mc/dragonfly/issues/944)
 - Changed effect types to variables. `Poison{}` is now `Poison`.
 - Potency fields were removed from `InstantHealth` and `InstantDamage`, instead having been added to a new
   `NewInstantWithPotency` function.
 - Fixed effect colours not matching the latest Minecraft version. (https://github.com/df-mc/dragonfly/issues/746)
 
-### **enchantment**
-- Changed enchantment types to variables. `Sharpness{}` is now `Sharpness`.
-
-### **entity**
-- Fixed splash/lingering potions and bottles o' enchanting throwing velocity not matching vanilla. (https://github.com/df-mc/dragonfly/issues/746)
-- Fixed projectile knockback to reflect projectile velocity rather than collision position.
-
 ### **item**
 - Added `NightVisionTorchflowerStew`, `BlindnessEyeblossomStew` and `NauseaStew` suspicious stew types.
-- Added resin item.
+- Added `Resin` item.
+- Added `Crossbow` item.
 - Added new `(Stack).WithItem` method to return an identical `Stack` with a different `world.Item` type.
 - Removed armour trims from `Stack`. To replace it, a `Trim` field has been added to `Helmet`, `Chestplate`, 
   `Leggings` and `Boots`.
 - Changed maximum stack count of written books to 16.
 - Fixed bottles not being filled up with water when using them on a water source. (https://github.com/df-mc/dragonfly/issues/945)
 - Removed `DisplayName` function.
+
+### **item/creative**
+- Fixed several items, such as banners and skulls, not showing up correctly in the creative inventory. ()
+
+### **item/enchantment**
+- Changed enchantment types to variables. `Sharpness{}` is now `Sharpness`.
 
 ### **player**
 - Added `HandleHeldSlotChange` method to `Handler`, called when a player changes held slot. Additionally, a new
@@ -89,6 +76,22 @@ entity. The entity may be rotated. Dialogues may be created using `New` and can 
 - Releasable items such as bows no longer fire when switching held slots. (https://github.com/df-mc/dragonfly/issues/676)
 - Fixed an issue where `(*Player).HideEntity` would leak entities. (https://github.com/df-mc/dragonfly/issues/978)
 - Fixed `(*Player).ReleaseItem` not using items in the left hand as projectiles.
+- Fixed no block break particles/progress/arm swinging happening. (https://github.com/df-mc/dragonfly/issues/960) Block
+  cracking is now fully server-side.
+- Fixed a bug where colliding with a wall while falling could negate or trigger fall damage. (https://github.com/df-mc/dragonfly/issues/779)
+- Stopped block resending when placing blocks close to the player, leading to reduced synchronisation issues.
+
+### **player/chat**
+- Added a new `Translate` function used for (client-side) translations. Passing a `TranslationString` to `Translate`
+  returns a `Translation`. `Translation`s may require arguments that can be passed in `(Translation).F`.
+- Added a new `Translator` interface for `Subscriber`s that can translate messages.
+- Added a new `(*Chat).Messaget` function to broadcast a translation that is localised for each subscriber that also
+  implements `Translator`.
+
+### **player/dialogue**
+dialogue is a new package for sending entity dialogues to players. These are UI windows with text, buttons and an
+entity. The entity shown may be rotated. Dialogues may be created using `New` and can be sent to players using
+`(*player.Player).SendDialogue`.
 
 ### **server**
 - `(*Server).Accept` now returns an `iter.Seq` of joining players that can be iterated over.
@@ -109,3 +112,9 @@ entity. The entity may be rotated. Dialogues may be created using `New` and can 
 - Entities are now stored on disk using the new format. (https://github.com/df-mc/dragonfly/issues/516)
 - Worlds with a void generator no longer panic when being loaded. (https://github.com/df-mc/dragonfly/issues/481)
 - Fixed panic when closing a world immediately after opening it. (https://github.com/df-mc/dragonfly/issues/801)
+
+### **world/biome**
+- Added `PaleGarden` biome.
+
+### **world/sound**
+- Added `CrossbowLoad` and `CrossbowShoot`
