@@ -1,4 +1,4 @@
-# DRAFT RELEASE NOTES - v0.10.0
+# v0.10.0
 
 Released January 5th, 2025.
 
