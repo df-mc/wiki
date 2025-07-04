@@ -1,4 +1,4 @@
-# v0.10.4
+# v0.10.5
 
 Released 3rd July 2025.
 
