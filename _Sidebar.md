@@ -9,6 +9,7 @@
     - [v0.10.3](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.3)
     - [v0.10.4](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.4)
     - [v0.10.5](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.5)
+    - [v0.10.7](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.7)
 * Developer Resources
     - [Getting Started](https://github.com/df-mc/dragonfly/wiki/Getting-Started)
     - [Event handlers](https://github.com/df-mc/dragonfly/wiki/Event-Handlers)
