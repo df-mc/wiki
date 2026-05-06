@@ -17,4 +17,5 @@
     - [Forms](https://github.com/df-mc/dragonfly/wiki/Forms)
     - [Commands](https://github.com/df-mc/dragonfly/wiki/Commands)
     - [Scoreboards](https://github.com/df-mc/dragonfly/wiki/Scoreboards)
+    - [View layers](https://github.com/df-mc/dragonfly/wiki/View-Layers)
 * [Community Projects](https://github.com/df-mc/dragonfly/wiki/Community-Projects)
