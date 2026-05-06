@@ -121,32 +121,3 @@ func unvanish(viewer, target *player.Player) {
     viewer.ViewVisibility(target, world.PublicVisibility())
 }
 ```
-
-### Show a personalised name tag
-```go
-package main
-
-import (
-    "github.com/df-mc/dragonfly/server/player"
-    "github.com/sandertv/gophertunnel/minecraft/text"
-)
-
-func showFriendlyName(viewer, target *player.Player) {
-    viewer.ViewNameTag(target, text.Colourf("<green>Friend</green> %s", target.Name()))
-}
-
-func resetName(viewer, target *player.Player) {
-    viewer.ViewPublicNameTag(target)
-}
-```
-
-### Reset all overrides for one target
-```go
-package main
-
-import "github.com/df-mc/dragonfly/server/player"
-
-func clearOverrides(viewer, target *player.Player) {
-    viewer.RemoveViewLayer(target)
-}
-```
