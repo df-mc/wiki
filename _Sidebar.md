@@ -10,6 +10,13 @@
     - [v0.10.4](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.4)
     - [v0.10.5](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.5)
     - [v0.10.7](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.7)
+    - [v0.10.8](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.8)
+    - [v0.10.9](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.9)
+    - [v0.10.10](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.10)
+    - [v0.10.11](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.11)
+    - [v0.10.12](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.12)
+    - [v0.10.13](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.13)
+    - [v0.10.14](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.14)
 * Developer Resources
     - [Getting Started](https://github.com/df-mc/dragonfly/wiki/Getting-Started)
     - [Event handlers](https://github.com/df-mc/dragonfly/wiki/Event-Handlers)
