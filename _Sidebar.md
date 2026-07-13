@@ -4,11 +4,11 @@
 * [FAQ](https://github.com/df-mc/dragonfly/wiki/Frequently-Asked-Questions-(FAQ))
 * [Releases](https://github.com/df-mc/dragonfly/wiki/Releases)
 * Recent Releases
+    - [v0.11.0](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.11.0)
     - [v0.10.14](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.14)
     - [v0.10.13](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.13)
     - [v0.10.12](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.12)
     - [v0.10.11](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.11)
-    - [v0.10.10](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.10)
 * Developer Resources
     - [Getting Started](https://github.com/df-mc/dragonfly/wiki/Getting-Started)
     - [Event handlers](https://github.com/df-mc/dragonfly/wiki/Event-Handlers)
