@@ -47,6 +47,10 @@ _Libraries for editing worlds on large scales._
 
 ## Servers
 
+### Hub Servers
+_Server implementations related to hubs._
+* [pokebedrock-hub](https://github.com/smell-of-curry/pokebedrock-hub) - PokeBedrock's server hub with full moderation, parkour, transfer system and a ton of other cool mechanics. Live at `play.pokebedrock.com:19132`.
+
 ### Building Servers
 _Server implementations related to enhancing building._
 * [plots](https://github.com/df-mc/plots) - Minecraft plots server written using Dragonfly.
