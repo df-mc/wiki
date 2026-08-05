@@ -2,6 +2,7 @@ We try to maintain a bi-monthly release cycle with Dragonfly. A new release is d
 
 ## Changelog
 
+- [v0.11.1](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.11.1) - 5th August 2026
 - [v0.11.0](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.11.0) - 13th July 2026
 - [v0.10.14](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.14) - 16th June 2026
 - [v0.10.13](https://github.com/df-mc/dragonfly/wiki/Changelog-v0.10.13) - 7th May 2026
