@@ -1,8 +1,11 @@
-# v0.11.3
+# v0.11.4
+
+> Note: `v0.11.3` was skipped due to an incorrect tag made against gophertunnel
 
 Released 29th August 2026.
 
 This version includes protocol support for 1.26.45 and is otherwise a small bug fix release.
+
 
 ## Changes
 
