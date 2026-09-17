@@ -9,12 +9,12 @@ jobs:
     steps:
 
       - name: Checkout current repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
           path: ./mirror
 
       - name: Checkout wiki repository
-        uses: actions/checkout@main
+        uses: actions/checkout@v5
         with:
           repository: df-mc/dragonfly.wiki
           ref: refs/heads/master
